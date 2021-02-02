@@ -20,3 +20,29 @@ def stations_by_distance(stations, p):
     station_distance_sorted = sorted_by_key(station_distance, 1)
     """Sort the list by the second key, which is the distance"""
     return station_distance_sorted
+def stations_within_radius(stations, centre, r):
+    all_stations = []
+    returned = []
+    for i in stations:
+        all_stations.append((i, haversine(i.coord, centre)))
+    all_stations = sorted(all_stations, key=lambda x:x[1])
+    for i in all_stations:
+        if i[1] <= r:
+            returned.append(i[0])
+        else:
+            break
+    return returned
+def rivers_with_station(stations):
+    rivers = set()
+    for i in stations:
+        rivers.add(i.river)
+    return rivers
+def stations_by_river(stations):
+    river_dict = {}
+    for i in rivers_with_station(stations):
+        river_dict[i] = []
+    for j in stations:
+        river_dict[j.river].append(j)
+    return river_dict
+
+
