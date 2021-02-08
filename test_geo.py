@@ -45,8 +45,8 @@ def test_stations_within_radius():
     s2 = station.MonitoringStation(s_id, m_id, label, coord, trange, river, town)
     stations = [s1, s2]
     result = geo.stations_within_radius(stations, (0, 0), 1)
-    assert len(stations) == 1
-    assert stations.__contains__(s2)
+    assert len(result) == 1
+    assert result.__contains__(s2)
 
 
 def test_rivers_with_station():
