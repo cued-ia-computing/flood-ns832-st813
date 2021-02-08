@@ -9,6 +9,7 @@ geographical data.
 from .utils import sorted_by_key  # noqa
 from floodsystem import station
 from haversine import haversine
+from collections import Counter
 
 
 def stations_by_distance(stations, p):
@@ -58,41 +59,24 @@ def stations_by_river(stations):
 
 def rivers_by_station_number(stations, N):
     """Returns a tuple (river name, n.o. stations) with 'N' entries, sorted by n.o stations"""
-    river_dict = stations_by_river(stations)
-    #print(river_dict)
-    """Creates two lists, one with the rivers and the other with the instances"""
-    rivers = ['River']
-    number = [5]
-    """Takes dictionary of rivers and checks to see if the river is in rivers_sorted"""
-    for i in river_dict:
-        print(i)
-        print((rivers[0]))
-        """Raise exception if type doesn't match what's expected"""
-        if type(i) != str:
-            raise Exception
-
-        if i in rivers:
-            #error in the code here, if you replace it with "if 'test' in rivers" it will call the function but otherwise it doesn't call this if function (despite being a string)
-            """if in list find position within the list and add '1' onto the corresponding count in the number list"""
-            position = rivers.index(i)
-            number[position] +=1
-        else:
-            """If not in the list add a new entry along with an entry in the number list"""
-            rivers.append (i)
-            number.append (1)
-
-    """Zips the two lists together into a list and reverse sorts"""
-    new = sorted(list(zip(rivers,number)), key=lambda x: x[1], reverse=True)
-
-    """Slices and returns, checking if there are more stations with the same number"""
-    nsort = sorted(number, reverse=True)
-    while nsort[N-1] == nsort[N]:
+    rivers = []
+    "Creates a list of rivers"
+    for i in stations:
+        rivers.append (i.river)
+    "Counts number of instances and creates list of tuples, then sorts"
+    counter = [[x,rivers.count(x)] for x in rivers]
+    counter = sorted(counter, key=lambda x: x[1], reverse=True)
+    "Removes repeats"
+    norepeats = []
+    for i in counter:
+       if i not in norepeats:
+          norepeats.append(i)
+    "Slices and returns, checking if there are more stations with the same number"
+    while norepeats[N-1] == norepeats[N]:
         N +=1
-        if N>50: #just to limit the list of data for troubleshooting
+        if N>10: #just to limit the list of data for troubleshooting
             break
-        print ("ADDED")
-    
-    return new [:N]
+    return norepeats[:N]
     
 
 def inconsistent_typical_range_stations(stations):
