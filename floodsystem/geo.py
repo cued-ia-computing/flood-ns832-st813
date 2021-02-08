@@ -74,8 +74,6 @@ def rivers_by_station_number(stations, N):
     "Slices and returns, checking if there are more stations with the same number"
     while norepeats[N-1] == norepeats[N]:
         N +=1
-        if N>10: #just to limit the list of data for troubleshooting
-            break
     return norepeats[:N]
     
 
