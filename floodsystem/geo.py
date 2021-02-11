@@ -32,13 +32,11 @@ def stations_within_radius(stations, centre, r):
     for i in stations:
         all_stations.append((i, haversine(i.coord, centre)))
     # Add all stations and its distance to the list
-    all_stations = sorted(all_stations, key=lambda x: x[1])
+    all_stations = sorted(all_stations, key=lambda x: x[0].name)
     # Sort the list according to the second key
     for i in all_stations:
         if i[1] <= r:
             returned.append(i[0])
-        else:
-            break
     # Add all stations within the radius in the sorted list to returned
     return returned
 

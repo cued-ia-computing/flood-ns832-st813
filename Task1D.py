@@ -8,9 +8,12 @@ def run():
     print(len(rivers))
     print(sorted(rivers)[:10])
 
-    print(geo.stations_by_river(stationdata.build_station_list())["River Aire"].name)
-    print(geo.stations_by_river(stationdata.build_station_list())["River Cam"].name)
-    print(geo.stations_by_river(stationdata.build_station_list())["River Thames"].name)
+    for i in geo.stations_by_river(stationdata.build_station_list())["River Aire"]:
+        print(i.name)
+    for j in geo.stations_by_river(stationdata.build_station_list())["River Cam"]:
+        print(j.name)
+    for k in geo.stations_by_river(stationdata.build_station_list())["River Thames"]:
+        print(k.name)
 
 
 if __name__ == "__main__":
