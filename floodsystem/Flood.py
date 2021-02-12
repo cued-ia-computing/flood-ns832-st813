@@ -18,7 +18,7 @@ def flood(stations, tol):
     "Checks ratio against tolerance"
     for station in stations:
         if station[1] > tol:
-            rivers += [station[0], station[1]]
+            rivers += [(station[0], station[1])]
     return rivers
 
 
