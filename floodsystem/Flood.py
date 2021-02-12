@@ -12,12 +12,14 @@ def run():
 
 def flood(stations, tol):
     rivers = []
-    nstations = filter(None, relative_water_level(stations))
-    for nstation in nstations:
-        print(nstation)
-        if nstation[1] > tol:
-            rivers += [nstation[0], nstation[1]]
-    return 0
+    stations = relative_water_level(stations)
+    "Filter out data with no relative level"
+    stations = [i for i in stations if None not in i]
+    "Checks ratio against tolerance"
+    for station in stations:
+        if station[1] > tol:
+            rivers += [station[0], station[1]]
+    return rivers
 
 
 if __name__ == "__main__":
