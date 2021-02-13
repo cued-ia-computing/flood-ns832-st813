@@ -5,8 +5,7 @@ from floodsystem import stationdata
 def run():
     """Requirement for Task 1D"""
     rivers = geo.rivers_with_station(stationdata.build_station_list())
-    print(len(rivers))
-    print(sorted(rivers)[:10])
+    print(len(rivers), "stations. First 10 - ", sorted(rivers)[:10])
     RA = []
     print('River Aire')
     for i in geo.stations_by_river(stationdata.build_station_list())["River Aire"]:
