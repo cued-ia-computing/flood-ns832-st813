@@ -45,8 +45,8 @@ def rivers_with_station(stations):
     """returns a set of rivers with at least one station"""
     rivers = set()
     for i in stations:
-        if i.river != "":
-            rivers.add(i.river)
+        rivers.add(i.river)
+
     # adding rivers to a set that doesn't allow repeated elements
     return rivers
 
