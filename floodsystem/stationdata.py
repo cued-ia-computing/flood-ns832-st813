@@ -91,7 +91,7 @@ def update_water_levels(stations):
 
 def relative_water_level(self):
     "Returns the latest water level as a fraction of the typical range"
-    stationlist=[('trial', 3)]
+    stationlist=[('trial', 0)]
     for station in self:
         if station.typical_range is not None and station.latest_level is not None:
             lev_range = station.typical_range[1] - station.typical_range[0]
