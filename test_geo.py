@@ -1,7 +1,8 @@
 from floodsystem import geo
 from floodsystem import station
 from floodsystem import stationdata
-from Task2B import flood
+from Flood import stations_level_over_threshold
+from Flood import stations_highest_rel_level
 
 
 def test_data():
@@ -17,30 +18,25 @@ def test_data():
     m_id = "test-m-2"
     label = "cambridge station"
     coord = (0, 1)
-    trange = (-2.3, 3.4445)
-    river = "River X"
     town = "cambridge"
     s2 = station.MonitoringStation(s_id, m_id, label, coord, trange, river, town)
-    s_id = "test-s-2"
-    m_id = "test-m-2"
+    s_id = "test-s-3"
+    m_id = "test-m-3"
     label = "cambridge station 2"
     coord = (0, 2)
-    trange = (-2.3, 3.4445)
-    river = "River X"
-    town = "cambridge"
     s3 = station.MonitoringStation(s_id, m_id, label, coord, trange, river, town)
-    s_id = "test-s-2"
-    m_id = "test-m-2"
-    label = "cambridge station 2"
+    s_id = "test-s-4"
+    m_id = "test-m-4"
+    label = "cambridge station 3"
     coord = (0, 2)
-    trange = (-2.3, 3.4445)
     river = "River Y"
-    town = "cambridge"
     s4 = station.MonitoringStation(s_id, m_id, label, coord, trange, river, town)
     s4.latest_level = 5
+    s4.typical_range = (-2.3, 3.4445)
     river = 'River Z'
     s5 = station.MonitoringStation(s_id, m_id, label, coord, trange, river, town)
     s5.latest_level = 0.1
+    s5.typical_range = (-2.3, 3.4445)
     return [s1, s2, s3, s4, s5]
 
 
@@ -50,10 +46,9 @@ def test_stations_by_distance():
 
 
 def test_stations_within_radius():
-    result = geo.stations_within_radius(test_data(), (0, 0), 1)
-    #print(len(result))
-    #assert len(result) == 1
-    #assert result.__contains__('cambridge station')
+    result = geo.stations_within_radius(test_data(), (0, 0), 0)
+    assert len(result) == 0
+    assert type(result) == list
 
 
 def test_rivers_with_station():
@@ -65,7 +60,7 @@ def test_rivers_with_station():
 def test_stations_by_river():
     result = geo.stations_by_river(test_data())
     assert (len(result["River Y"])) == 1
-    #assert result["River Y"].label == "cambridge station 2"
+    assert (type(result) == dict)
 
 
 def test_rivers_by_station_number():
@@ -75,8 +70,8 @@ def test_rivers_by_station_number():
 
 
 def test_relative_water_level():
-    result = flood(test_data(), 0.8)
-    assert result[1] == ('cambridge station 2', 1.2707807468012882)
+    result = stations_level_over_threshold(test_data(), 0.8)
+    assert result == [('cambridge station 3', 1.2707807468012882)]
 
 
 def alltest():
@@ -87,5 +82,6 @@ def alltest():
     test_rivers_by_station_number()
     test_relative_water_level()
     print("ALL CLEAR")
+
 
 alltest()
