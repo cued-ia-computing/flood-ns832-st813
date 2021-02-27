@@ -53,7 +53,7 @@ class MonitoringStation:
             if station.typical_range is not None and station.latest_level is not None:
                 lev_range = station.typical_range[1] - station.typical_range[0]
                 ratio = (station.latest_level-station.typical_range[0]) / lev_range
-                stationlist += [(station.name, ratio)]
+                stationlist += [(station, ratio)]
             else:
-                stationlist += [(station.name, None)]
+                stationlist += [(station, None)]
         return stationlist

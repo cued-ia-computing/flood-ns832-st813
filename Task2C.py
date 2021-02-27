@@ -9,11 +9,11 @@ def run():
     rivers = stations_highest_rel_level(stations, 10)
     riv = []
     for i in stations:
-        if i.name in rivers:
+        if i in rivers:
             riv.append(i)
     rivers = station.MonitoringStation.relative_water_level(riv)[1:]
     for i in rivers:
-        print(i)
+        print(i[0].name + " " + str(i[1]))
 
 
 if __name__ == "__main__":

@@ -7,7 +7,8 @@ def run():
     stationdata.update_water_levels(stations)
     rivers = stations_level_over_threshold(stations, 0.8)
     print(len(rivers))
-    print(rivers)
+    for i in rivers:
+        print(i[0].name + " " + str(i[1]))
 
 
 if __name__ == "__main__":
