@@ -69,6 +69,9 @@ def test_rivers_by_station_number():
 
 def test_relative_water_level():
     result = stations_level_over_threshold(test_data(), 0.8)
+    result[0] = list(result[0])
+    result[0][0] = result[0][0].name
+    result[0] = tuple(result[0])
     assert result == [('cambridge station 3', 1.2707807468012882)]
 
 
