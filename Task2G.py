@@ -1,11 +1,9 @@
-#if the level is beyond typical high: severe
-#if the level is above the average of typical high and low and is rising: high
-#if the level is above the average of typical high and low and is decreasing: moderate
-#if the level is below the average of typical high and low: low
+"""if the level is beyond typical high: severe
+if the level is above the average of typical high and low and is rising: high
+if the level is above the average of typical high and low and is decreasing: moderate
+if the level is below the average of typical high and low: low"""
 
-from floodsystem import plot
 from floodsystem import stationdata
-import Flood
 from floodsystem import datafetcher
 import datetime
 import matplotlib.dates as mdates
@@ -18,7 +16,7 @@ def monotonocity(station, dates, levels):
 def run():
     stations = stationdata.build_station_list()
     stationdata.update_water_levels(stations)
-    category = {'severe':[],'high':[],'moderate':[],'low':[]}
+    category = {'severe': [], 'high': [], 'moderate': [], 'low': []}
     for i in stations:
         dates, levels = datafetcher.fetch_measure_levels(i.measure_id, datetime.timedelta(1))
         if i.typical_range_consistent() and levels:
