@@ -10,7 +10,7 @@ import matplotlib.dates as mdates
 
 
 def monotonocity(station, dates, levels):
-    return (levels[-1]-levels[0])/(mdates.date2num(dates[-1])-mdates.date2num(dates[0]))
+    return (levels[-1] - levels[0]) / (mdates.date2num(dates[-1]) - mdates.date2num(dates[0]))
 
 
 def run():
@@ -23,9 +23,9 @@ def run():
             if levels[-1] >= i.typical_range[1]:
                 category['severe'].append(i.name)
             elif levels[-1] < i.typical_range[1]:
-                if levels[-1] >= (i.typical_range[1]+i.typical_range[0])/2 and monotonocity(i, dates, levels) >= 0:
+                if levels[-1] >= (i.typical_range[1] + i.typical_range[0]) / 2 and monotonocity(i, dates, levels) >= 0:
                     category['high'].append(i.name)
-                elif levels[-1] >= (i.typical_range[1]+i.typical_range[0])/2 and monotonocity(i, dates, levels) < 0:
+                elif levels[-1] >= (i.typical_range[1] + i.typical_range[0]) / 2 and monotonocity(i, dates, levels) < 0:
                     category['moderate'].append(i.name)
                 else:
                     category['low'].append(i.name)
