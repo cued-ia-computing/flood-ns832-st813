@@ -7,9 +7,8 @@ geographical data.
 """
 
 from .utils import sorted_by_key  # noqa
-from floodsystem import station
 from haversine import haversine
-from collections import Counter
+from floodsystem.station.MonitoringStation import typical_range_consistent
 
 
 def stations_by_distance(stations, p):
@@ -66,6 +65,7 @@ def stations_by_river(stations):
 def rivers_by_station_number(stations, N):
     """Returns a tuple (river name, n.o. stations) with 'N' entries, sorted by n.o stations"""
     rivers = []
+    assert N <= len(stations)
     "Creates a list of rivers"
     for i in stations:
         rivers.append(i.river)
@@ -87,6 +87,6 @@ def inconsistent_typical_range_stations(stations):
     """Takes list of stations and returns those with inconsistent typical values"""
     inconsistent_stations = []
     for i in range(len(stations)):
-        if not station.MonitoringStation.typical_range_consistent(stations[i]):
+        if not typical_range_consistent(stations[i]):
             inconsistent_stations.append(stations[i].name)
     return sorted(inconsistent_stations)
