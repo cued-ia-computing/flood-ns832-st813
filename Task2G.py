@@ -21,14 +21,14 @@ def run():
         dates, levels = datafetcher.fetch_measure_levels(i.measure_id, datetime.timedelta(1))
         if i.typical_range_consistent() and levels:
             if levels[-1] >= i.typical_range[1]:
-                category['severe'].append(i.name)
+                category['severe'].append(i.town)
             elif levels[-1] < i.typical_range[1]:
                 if levels[-1] >= (i.typical_range[1] + i.typical_range[0]) / 2 and monotonocity(i, dates, levels) >= 0:
-                    category['high'].append(i.name)
+                    category['high'].append(i.town)
                 elif levels[-1] >= (i.typical_range[1] + i.typical_range[0]) / 2 and monotonocity(i, dates, levels) < 0:
-                    category['moderate'].append(i.name)
+                    category['moderate'].append(i.town)
                 else:
-                    category['low'].append(i.name)
+                    category['low'].append(i.town)
     print(category)
 
 
